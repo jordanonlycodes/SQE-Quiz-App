@@ -9,41 +9,39 @@
 ![Pull Requests](https://img.shields.io/github/issues-search/Glover012/quiz-app?query=is%3Apr&label=Pull%20Requests)
 ![License](https://img.shields.io/github/license/Glover012/quiz-app)
 
-A desktop quiz application built with Python and a PySide6 GUI.
+A desktop quiz application built with Python and a PySide6 GUI, evolved from a simple [console quiz application](https://github.com/Glover012/mini-project-collection/blob/main/content/Python/mini-projects/console/04_quiz/quiz.py).
 
 ## 🚀 Table of contents
-- [🎯 Quiz App](#-quiz-app)
-  - [🚀 Table of contents](#-table-of-contents)
-  - [📘 About the project](#-about-the-project)
-  - [🧩 What this project demonstrates](#-what-this-project-demonstrates)
-  - [✨ Features](#-features)
-  - [🎬 Demo](#-demo)
-  - [🔄 Application data flow](#-application-data-flow)
-  - [🛠️ Technical highlights](#️-technical-highlights)
-  - [🧠 What I learned](#-what-i-learned)
-  - [📋 Requirements](#-requirements)
-  - [⚙️ Installation](#️-installation)
-      - [💻 Windows PowerShell](#-windows-powershell)
-  - [🔧 Configuration](#-configuration)
-      - [💻 Logging level in Windows PowerShell](#-logging-level-in-windows-powershell)
-  - [▶️ Running app](#️-running-app)
-  - [🗂️ Project structure](#️-project-structure)
-  - [📌 Project status](#-project-status)
-  - [🚧 Known limitations](#-known-limitations)
-  - [🛣 Roadmap](#-roadmap)
-    - [✅ Completed](#-completed)
-    - [📝 Planned](#-planned)
-  - [🧪 Tests](#-tests)
-    - [🤖 CI](#-ci)
-      - [💻 Running tests with coverage in Windows PowerShell](#-running-tests-with-coverage-in-windows-powershell)
-  - [⚠️ Error triggers](#️-error-triggers)
-    - [🚨 Error Trigger Table](#-error-trigger-table)
-  - [📄 License](#-license)
-  - [👤 Author contact](#-author-contact)
-  - [⭐ Support](#-support)
+- [📘 About the project](#-about-the-project)
+- [🧩 What this project demonstrates](#-what-this-project-demonstrates)
+- [✨ Features](#-features)
+- [🎬 Demo](#-demo)
+- [🔄 Application data flow](#-application-data-flow)
+- [🛠️ Technical highlights](#️-technical-highlights)
+- [🧠 What I learned](#-what-i-learned)
+- [📋 Requirements](#-requirements)
+- [⚙️ Installation](#️-installation)
+    - [💻 Windows PowerShell](#-windows-powershell)
+- [🔧 Configuration](#-configuration)
+    - [💻 Logging level in Windows PowerShell](#-logging-level-in-windows-powershell)
+- [▶️ Running app](#️-running-app)
+- [🗂️ Project structure](#️-project-structure)
+- [📌 Project status](#-project-status)
+- [🚧 Known limitations](#-known-limitations)
+- [🛣 Roadmap](#-roadmap)
+  - [✅ Completed](#-completed)
+  - [📝 Planned](#-planned)
+- [🧪 Tests](#-tests)
+  - [🤖 CI](#-ci)
+  - [💻 Running tests with coverage in Windows PowerShell](#-running-tests-with-coverage-in-windows-powershell)
+- [⚠️ Error triggers](#️-error-triggers)
+  - [🚨 Error Trigger Table](#-error-trigger-table)
+- [📄 License](#-license)
+- [👤 Author contact](#-author-contact)
+- [⭐ Support](#-support)
 
 ## 📘 About the project
-This project started as a simple console quiz application and gradually evolved into a structured desktop app with GUI screens, external API integration, background loading, custom error handling, logging, automated tests, CI and project documentation.
+This project started as a simple [console quiz application](https://github.com/Glover012/mini-project-collection/blob/main/content/Python/mini-projects/console/04_quiz/quiz.py) and gradually evolved into a structured desktop app with GUI screens, external API integration, background loading, custom error handling, logging, automated tests, CI and project documentation.
 
 Initially, the main goal was to build a simple application with a GUI. However, the development of this app took an unexpected turn. As the project grew, it was refactored multiple times for different reasons, but the main one was often: "let's just improve this small thing".
 
@@ -228,7 +226,7 @@ To avoid using external services, test coverage is measured locally with `pytest
 ### 🤖 CI
 Tests are run automatically with GitHub Actions on pushes to `main` and `dev`, pull requests to `main`, and manual workflow runs.
 
-#### 💻 Running tests with coverage in Windows PowerShell
+### 💻 Running tests with coverage in Windows PowerShell
 ```powershell
 python -m pytest tests --cov=modules --cov-report=term-missing
 ```
