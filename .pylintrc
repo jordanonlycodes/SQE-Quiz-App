@@ -1,0 +1,15 @@
+[MASTER]
+# PySide6 is a C-extension-backed package and may not expose all members to Pylint.
+extension-pkg-allow-list=PySide6
+
+[MESSAGES CONTROL]
+# Protected access is intentionally used in tests to verify GUI internals.
+disable=protected-access
+
+[BASIC]
+# Project-specific short name used in the quiz model/API layer.
+good-names=tp
+
+[FORMAT]
+# Retain Pylint's standard 100-character limit as the project coding standard.
+max-line-length=100
