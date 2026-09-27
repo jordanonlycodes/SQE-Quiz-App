@@ -99,7 +99,7 @@ def main() -> None:
 
     # Load and apply styles from styles.css to the entire application
     stylesheet_path = "modules/gui/styles/styles.css"
-    with open(stylesheet_path, "r") as file:
+    with open(stylesheet_path, "r", encoding="utf-8") as file:
         app.setStyleSheet(file.read())
     logger.debug("App stylesheet loaded from: %s", stylesheet_path)
 

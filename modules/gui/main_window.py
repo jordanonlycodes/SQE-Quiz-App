@@ -25,9 +25,17 @@ class MainWindow(QMainWindow):
 
     def __init__(self) -> None:
         super().__init__()
+        self._ignored: list[QWidget] = []
+        self._close_requested = False
+        self._question_loader: QuestionLoader | None = None
+        self._thread_controller: WorkerThreadController | None = None
+        self._start_display: StartDisplay | None = None
+        self._question_display: QuestionDisplay | None = None
+        self._menu_bar: MenuBar | None = None
+        self._error_overlay: ErrorOverlay | None = None
+        self._loading_overlay: LoadingOverlay | None = None
         self._setup_window()
         self._setup_layout()
-        self._init_default_variables()
         self._setup_menu_bar()
         self._setup_error_overlay()
         self._setup_loading_overlay()
@@ -45,14 +53,6 @@ class MainWindow(QMainWindow):
         self._central_widget.setLayout(self._main_layout)
         self.setCentralWidget(self._central_widget)
     
-    def _init_default_variables(self) -> None:
-        # List of ignored widgets, from MainWindow clean method
-        # Used for overlays
-        self._ignored = []
-        self._close_requested = False
-        self._question_loader: QuestionLoader | None = None
-        self._thread_controller: WorkerThreadController | None = None
-
     def _setup_menu_bar(self) -> None:
         self._menu_bar = MenuBar()
         # Connects Signals from MenuBar to _handle method

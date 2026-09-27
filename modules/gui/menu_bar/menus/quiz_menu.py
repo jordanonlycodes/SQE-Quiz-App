@@ -35,10 +35,10 @@ class QuizMenu(QMenu):
         logger.debug("Start quiz action triggered.")
 
     def _add_exit_action(self) -> None:
-        exit = QAction('Exit', self)
-        exit.setShortcut('Ctrl+Q')
-        exit.triggered.connect(self._on_exit_action_triggered)
-        self.addAction(exit)
+        exit_action = QAction('Exit', self)
+        exit_action.setShortcut('Ctrl+Q')
+        exit_action.triggered.connect(self._on_exit_action_triggered)
+        self.addAction(exit_action)
     
     @Slot()
     def _on_exit_action_triggered(self) -> None:

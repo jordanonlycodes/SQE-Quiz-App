@@ -81,7 +81,7 @@ class OpenTriviaClient:
             data = response.json()
             if not data['results']:
                 raise NoQuestionsFoundError('No questions found for selected parameters. Try different category, difficulty or type.')
-            elif int(amount) > len(data['results']):
+            if int(amount) > len(data['results']):
                 raise NotEnoughQuestionsError('Not enough questions found for the selected parameters. Try lower number.')
             logger.debug(
                 "OpenTDB response parsed: response_code=%s, results=%s",

@@ -59,7 +59,7 @@ class ErrorOverlay(QWidget):
             Generic OpenTriviaClientError messages get an additional retry hint.
         """
         label_text = str(error)
-        if type(error) is OpenTriviaClientError:
+        if isinstance(error, OpenTriviaClientError):
             label_text += " Try again in a few seconds."
         self._error_label.setText(label_text)
         self._error_label.update()
