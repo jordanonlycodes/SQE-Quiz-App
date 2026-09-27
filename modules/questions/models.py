@@ -2,7 +2,11 @@ import logging
 import html
 import random
 
-from .opentdb_client import OpenTriviaClient, OpenTriviaAPIResponseFormat
+from .opentdb_client import (
+    OpenTriviaAPIQuestionFormat,
+    OpenTriviaAPIResponseFormat,
+    OpenTriviaClient,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -78,49 +82,62 @@ class Questions:
             )
         return questions_data
 
-    def _questions_data_to_question_objects(self, questions_data: OpenTriviaAPIResponseFormat) -> None:
+    def _questions_data_to_question_objects(
+            self, questions_data: OpenTriviaAPIResponseFormat
+            ) -> None:
         """Convert raw API question data into Question objects."""
-
         for question_params in questions_data["results"]:
-            # Question parameters to variables, 
-            # html.unescape to decode HTML entities from fields
-            tp = question_params["type"]
-            difficulty = question_params["difficulty"]
-            category = html.unescape(question_params["category"])
-            question = html.unescape(question_params["question"])
-            correct_answer = html.unescape(question_params["correct_answer"])
-            incorrect_answers = [html.unescape(answer) for answer in question_params["incorrect_answers"]]
+            self.questions_list.append(self._build_question(question_params))
 
-            # Set all_answers, mix answers for multiple choice
-            all_answers: list[str] = []
-            if tp == 'boolean':
-                all_answers = ["True", "False"]
-            elif tp == 'multiple':
-                all_answers = incorrect_answers.copy()
-                all_answers.append(correct_answer)
-                random.shuffle(all_answers)
+        logger.debug(
+            "Converted %s questions into Question objects.",
+            len(self.questions_list),
+            )
 
-            # Assign points, based on question difficulty
-            points = 0
-            if difficulty == "hard":
-                points = 3
-            elif  difficulty == "medium":
-                points = 2
-            elif  difficulty == "easy":
-                points = 1
+    def _build_question(self, question_params: OpenTriviaAPIQuestionFormat) -> Question:
+        """Convert one raw API question into a Question object."""
+        question_type = question_params["type"]
+        difficulty = question_params["difficulty"]
+        category = html.unescape(question_params["category"])
+        question = html.unescape(question_params["question"])
+        correct_answer = html.unescape(question_params["correct_answer"])
+        incorrect_answers = [
+            html.unescape(answer)
+            for answer in question_params["incorrect_answers"]
+            ]
 
-            # Add Question object, to questions_list
-            self.questions_list.append(Question(
-                tp, 
-                difficulty, 
-                category, 
-                question, 
-                correct_answer, 
-                incorrect_answers, 
-                all_answers, 
-                points))
-    
-        logger.debug("Converted %s questions into Question objects.", len(self.questions_list))
+        return Question(
+            question_type,
+            difficulty,
+            category,
+            question,
+            correct_answer,
+            incorrect_answers,
+            self._build_answers(question_type, correct_answer, incorrect_answers),
+            self._get_points(difficulty),
+            )
+
+    @staticmethod
+    def _build_answers(
+            question_type: str,
+            correct_answer: str,
+            incorrect_answers: list[str],
+            ) -> list[str]:
+        """Build and randomize the answer choices for a question."""
+        if question_type == "boolean":
+            return ["True", "False"]
+        if question_type == "multiple":
+            all_answers = incorrect_answers.copy()
+            all_answers.append(correct_answer)
+            random.shuffle(all_answers)
+            return all_answers
+        return []
+
+    @staticmethod
+    def _get_points(difficulty: str) -> int:
+        """Return the score value associated with a question difficulty."""
+        points_by_difficulty = {"hard": 3, "medium": 2, "easy": 1}
+        return points_by_difficulty.get(difficulty, 0)
 
     def load(self) -> None:
         """Fetch question data, build Question objects and store them into questions_list."""

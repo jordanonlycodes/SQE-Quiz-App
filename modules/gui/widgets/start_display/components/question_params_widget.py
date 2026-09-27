@@ -90,25 +90,23 @@ class QuestionParamsWidget(QWidget):
             self._type_cb.addItem(question_type, question_type_id)
 
     def _add_question_param_frames(self) -> None:
-        self._amount_frame = ParamFrame("Amount")
-        self._frame_list.append(self._amount_frame)
-        self._amount_frame.add_combobox(self._amount_cb)
-        self._main_layout.addWidget(self._amount_frame)
+        """Create and add the four quiz parameter frames."""
+        self._amount_frame = self._add_parameter_frame("Amount", self._amount_cb)
+        self._difficulty_frame = self._add_parameter_frame(
+            "Difficulty", self._difficulty_cb
+            )
+        self._category_frame = self._add_parameter_frame("Category", self._category_cb)
+        self._type_frame = self._add_parameter_frame("Type", self._type_cb)
 
-        self._difficulty_frame = ParamFrame("Difficulty")
-        self._frame_list.append(self._difficulty_frame)
-        self._difficulty_frame.add_combobox(self._difficulty_cb)
-        self._main_layout.addWidget(self._difficulty_frame)
-
-        self._category_frame = ParamFrame("Category")
-        self._frame_list.append(self._category_frame)
-        self._category_frame.add_combobox(self._category_cb)
-        self._main_layout.addWidget(self._category_frame)
-
-        self._type_frame = ParamFrame("Type")
-        self._frame_list.append(self._type_frame)
-        self._type_frame.add_combobox(self._type_cb)
-        self._main_layout.addWidget(self._type_frame)
+    def _add_parameter_frame(
+            self, label: str, combobox: QComboBox
+            ) -> ParamFrame:
+        """Create one parameter frame and add it to the layout."""
+        frame = ParamFrame(label)
+        self._frame_list.append(frame)
+        frame.add_combobox(combobox)
+        self._main_layout.addWidget(frame)
+        return frame
 
     def get_params(self) -> QuestionParams:
         """Return selected question params in comboboxes."""
